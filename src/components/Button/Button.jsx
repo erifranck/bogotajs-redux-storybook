@@ -1,15 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { classNames } from 'src/utils/classNames'
+import { classNames } from '../../utils/classNames'
 
 export const Button = (props) => {
     const classes = classNames({
         'bx-btn': true,
-        'bx-btn-primary': props.primary,
-        'bx-btn-secondary': props.secondary,
+        'bx-btn-primary': props.primary && !props.secondary,
+        'bx-btn-secondary': props.secondary && !props.primary,
     });
     return (
-        <button className={`${props.className} ${classes}`} >
+        <button
+            onClick={props.onClick}
+            className={`${props.className} ${classes}`} >
             {props.children}
         </button>
     );
@@ -18,4 +20,5 @@ export const Button = (props) => {
 Button.propTypes = {
     className: PropTypes.string.isRequired,
     children: PropTypes.node.isRequired,
+    onClick: PropTypes.func.isRequired,
 };
